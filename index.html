@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Loading | Erina</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #ffc1e3, #ff8fbd); /* pink lembut */
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Orbitron', sans-serif;
+      color: #1a1a1a; /* teks gelap */
+      text-align: center;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    .solar-system {
+      position: relative;
+      width: 220px;
+      height: 220px;
+    }
+
+    /* Hati tengah 3D */
+    .heart-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 52px;
+      height: 48px;
+      background:
+        radial-gradient(circle at 30% 30%, #ff9cdf, #d02b8e 70%), /* highlight */
+        linear-gradient(135deg, #d83692, #ff6fcf);
+      clip-path: polygon(
+        50% 15%, 
+        85% 0%, 
+        100% 25%, 
+        100% 60%, 
+        50% 100%, 
+        0% 60%, 
+        0% 25%, 
+        15% 0%
+      );
+      box-shadow:
+        0 0 12px #ff6fcf,
+        inset 0 0 12px #ffb3dd;
+      filter: drop-shadow(0 0 4px #d83692);
+    }
+
+    .orbit {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border: 1px dashed rgba(136, 0, 70, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      animation: rotate 6s linear infinite;
+    }
+
+    .orbit.heart1 {
+      width: 110px;
+      height: 110px;
+    }
+
+    .orbit.heart2 {
+      width: 150px;
+      height: 150px;
+      animation-duration: 10s;
+    }
+
+    /* Hati kecil di orbit */
+    .orbit .satellite {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: 26px;
+      height: 24px;
+      background:
+        radial-gradient(circle at 35% 35%, #ffb3f4, #a63383 70%),
+        linear-gradient(135deg, #cc3399, #ffc3f3);
+      clip-path: polygon(
+        50% 15%, 
+        85% 0%, 
+        100% 25%, 
+        100% 60%, 
+        50% 100%, 
+        0% 60%, 
+        0% 25%, 
+        15% 0%
+      );
+      box-shadow:
+        0 0 10px #ffb3dd,
+        inset 0 0 6px #ff8ace;
+      filter: drop-shadow(0 0 3px #cc3399);
+    }
+
+    .orbit.heart2 .satellite {
+      background:
+        radial-gradient(circle at 35% 35%, #ff7bff, #87008e 70%),
+        linear-gradient(135deg, #a800a8, #ff5eff);
+      box-shadow:
+        0 0 12px #ff5eff,
+        inset 0 0 8px #d147ff;
+      filter: drop-shadow(0 0 4px #a800a8);
+    }
+
+    .loader-container {
+      margin-top: 20px;
+    }
+
+    .loader-percent {
+      font-size: 1.8rem;
+      color: #1a1a1a;
+      font-weight: bold;
+      text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+      margin-bottom: 8px;
+    }
+
+    .loader-text {
+      font-size: 1.5rem;
+      color: #d100a9;
+      text-shadow: 0 0 6px #ffb3dd;
+      animation: blink 2s infinite;
+    }
+
+    /* Animations */
+    @keyframes rotate {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="solar-system">
+    <div class="heart-center"></div>
+
+    <div class="orbit heart1">
+      <div class="satellite"></div>
+    </div>
+
+    <div class="orbit heart2">
+      <div class="satellite"></div>
+    </div>
+  </div>
+
+  <div class="loader-container">
+    <div class="loader-percent" id="percent">0%</div>
+    <div class="loader-text">Loading ......</div>
+  </div>
+
+  <script>
+    let percent = 0;
+    const percentDisplay = document.getElementById('percent');
+
+    const interval = setInterval(() => {
+      percent++;
+      percentDisplay.textContent = percent + '%';
+
+      if (percent >= 100) {
+        clearInterval(interval);
+        window.location.href = "main.html";
+      }
+    }, 35);
+  </script>
+
+</body>
+</html>
